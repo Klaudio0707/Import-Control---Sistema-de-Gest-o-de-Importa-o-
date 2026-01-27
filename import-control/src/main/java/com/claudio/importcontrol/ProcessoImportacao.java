@@ -1,9 +1,16 @@
 package com.claudio.importcontrol;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
+@Entity
 public class ProcessoImportacao {
+
+    @Id
+    private String id = UUID.randomUUID().toString();
     private String numeroProcesso;
     private String identificadorInvoice;
     private String fornecedor;
@@ -12,6 +19,8 @@ public class ProcessoImportacao {
     private BigDecimal precoPorQuilo;
     private LocalDate dataEmbarque;
 
+    public ProcessoImportacao() {
+    }
     public ProcessoImportacao(String numeroProcesso, String invoice, String fornecedor) {
         this.numeroProcesso = numeroProcesso;
         this.identificadorInvoice = invoice;
@@ -21,6 +30,9 @@ public class ProcessoImportacao {
 
     public String getNumeroProcesso() {
         return numeroProcesso;
+    }
+     public String getId() {
+        return id;
     }
     public String getIdentificadorInvoice() {
         return identificadorInvoice;
