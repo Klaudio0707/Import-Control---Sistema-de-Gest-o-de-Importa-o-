@@ -64,4 +64,16 @@ public class ProcessoImportacao {
     public void setDataEmbarque(LocalDate data) {
         this.dataEmbarque = data;
     }
+
+    void setNumeroProcesso(String numeroProcesso) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    void setIdentificadorInvoice(String identificadorInvoice) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    void setFornecedor(String fornecedor) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }
