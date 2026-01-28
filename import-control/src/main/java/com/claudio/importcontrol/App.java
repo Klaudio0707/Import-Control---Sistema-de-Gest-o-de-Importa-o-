@@ -15,7 +15,7 @@ public class App {
                 System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
             }
         } catch (Exception e) {
-            System.out.println("⚠️ .env não encontrado, seguindo com variáveis de ambiente do sistema.");
+            System.out.println(".env não encontrado, seguindo com variáveis de ambiente do sistema.");
         }
 		SpringApplication.run(App.class, args);
 		System.out.println("Servidor rodando em http://localhost:8080");

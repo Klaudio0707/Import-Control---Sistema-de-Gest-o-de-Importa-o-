@@ -7,7 +7,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProcessoService {
@@ -16,7 +15,12 @@ public class ProcessoService {
     private ProcessoRepository repository;
 
     public List<ProcessoImportacao> listar() {
-        return repository.findAll();
+        List<ProcessoImportacao> processos = repository.findAll();
+        if (processos.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum processo encontrado.");
+        }
+
+        return processos;
     }
 
     public ProcessoImportacao criar(ProcessoDTO dados) {
@@ -43,11 +47,16 @@ public class ProcessoService {
         return repository.save(novoProcesso);
     }
 
-    public Optional<ProcessoImportacao> buscarPorId(String id) {
-        return repository.findById(id);
+    public ProcessoImportacao buscarPorId(String id) {
+        return repository.findById(id).orElseThrow(()
+                -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Processo com ID " + id + " não encontrado.")
+        );
     }
 
     public void excluir(String id) {
+        if (!repository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Processo com ID " + id + " não encontrado.");
+        }
         repository.deleteById(id);
     }
 }

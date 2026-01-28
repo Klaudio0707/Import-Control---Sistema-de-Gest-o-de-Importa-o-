@@ -1,6 +1,5 @@
 package com.claudio.importcontrol;
 
-import java.util.Optional;
 import java.util.List;
 
 import com.claudio.importcontrol.dto.ProcessoDTO;
@@ -27,15 +26,9 @@ public class ProcessoController {
         ProcessoImportacao salvo = service.criar(dados);
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
-    
     @GetMapping("/{id}")
-    public ResponseEntity<ProcessoImportacao> buscarPorId(@PathVariable String id) {
-        Optional<ProcessoImportacao> processo = service.buscarPorId(id);
-        if (processo.isPresent()) {
-            return ResponseEntity.ok(processo.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ProcessoImportacao buscarPorId(@PathVariable String id) {
+        return service.buscarPorId(id);
     }
 
     @DeleteMapping("/{id}")
