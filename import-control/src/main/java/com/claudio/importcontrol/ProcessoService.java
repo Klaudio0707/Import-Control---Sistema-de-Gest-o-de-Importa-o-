@@ -1,12 +1,13 @@
 package com.claudio.importcontrol;
 
-import com.claudio.importcontrol.dto.ProcessoDTO;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
 
-import java.util.List;
+import com.claudio.importcontrol.dto.ProcessoDTO;
 
 @Service
 public class ProcessoService {
@@ -18,7 +19,7 @@ public class ProcessoService {
         List<ProcessoImportacao> processos = repository.findAll();
         if (processos.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Nenhum processo encontrado.");
-            }
+        }
 
         return processos;
     }
@@ -45,6 +46,31 @@ public class ProcessoService {
         novoProcesso.setDataEmbarque(dados.dataEmbarque());
 
         return repository.save(novoProcesso);
+    }
+
+    public ProcessoImportacao atualizar(String id, ProcessoDTO dados) {
+        ProcessoImportacao processoExistente = buscarPorId(id);
+
+        if (!processoExistente.getNumeroProcesso().equals(dados.numeroProcesso())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Não é permitido alterar o Número do Processo.");
+        }
+
+        processoExistente.setIdentificadorInvoice(dados.identificadorInvoice());
+        processoExistente.setFornecedor(dados.fornecedor());
+        processoExistente.setProduto(dados.produto());
+        processoExistente.setQuantidade(dados.quantidade());
+        processoExistente.setPrecoPorQuilo(dados.precoPorQuilo());
+        processoExistente.setDataEmbarque(dados.dataEmbarque());
+
+        return repository.save(processoExistente);
+    }
+
+    public List<ProcessoImportacao> buscarPorFornecedor(String nome) {
+        return repository.findByFornecedorContainingIgnoreCase(nome);
+    }
+
+    public List<ProcessoImportacao> buscarMaioresQue(Integer quantidade) {
+        return repository.buscarAcimaDe(quantidade);
     }
 
     public ProcessoImportacao buscarPorId(String id) {

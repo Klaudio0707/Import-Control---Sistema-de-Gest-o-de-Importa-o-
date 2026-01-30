@@ -8,17 +8,15 @@ import io.github.cdimascio.dotenv.Dotenv;
 @SpringBootApplication
 public class App {
 	public static void main(String[] args) {
-    System.out.println("📂 DIRETÓRIO DE EXECUÇÃO: " + System.getProperty("user.dir"));
     Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
 
-    String url = dotenv.get("DB_URL");
-    
-    if (url == null) {
-        System.out.println("❌ ERRO: O .env não foi lido ou a variável DB_URL não existe nele.");
-    } else {
-        System.out.println("✅ SUCESSO: .env carregado! URL: " + url);
-    }
+    String port = dotenv.get("PORT");
 
+    if (port == null) {
+        System.out.println("ERRO: O .env não foi lido ou a variável PORT não existe nele.");
+    } else {
+        System.out.println("SUCESSO: .env carregado! URL: https://localhost:" + port);
+    }
     dotenv.entries().forEach(entry -> {
         System.setProperty(entry.getKey(), entry.getValue());
     });
