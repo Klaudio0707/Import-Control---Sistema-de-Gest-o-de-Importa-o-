@@ -22,6 +22,10 @@ public class UsuarioController {
     public Usuario criar(@RequestBody UsuarioDTO dados) {
         return service.criar(dados);
     }
+     @GetMapping("/{id}")
+    public Usuario buscarPorId(@PathVariable Long id) {
+        return service.buscarPorId(id);
+    }
 
     @GetMapping
     public List<Usuario> listar() {
