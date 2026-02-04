@@ -13,8 +13,6 @@ public class ProcessoImportacao {
 
     @Id
     private String id = UUID.randomUUID().toString();
-    @Column(unique = true)
-    // private static final long idUsuario = idUsuario;
     private String numeroProcesso;
     private String identificadorInvoice;
     private String fornecedor;
