@@ -5,15 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.claudio.importcontrol.dto.ProcessoDTO;
 import com.claudio.importcontrol.entity.ProcessoImportacao;
@@ -23,8 +15,11 @@ import com.claudio.importcontrol.service.ProcessoService;
 @RequestMapping("/processos")
 public class ProcessoController {
 
-    @Autowired
-    private ProcessoService service;
+    private final ProcessoService service;
+
+    public ProcessoController(@Autowired ProcessoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<List<ProcessoImportacao>> listarTodos() {
@@ -38,23 +33,23 @@ public class ProcessoController {
     }
 
     @GetMapping("/{id}")
-    public ProcessoImportacao buscarPorId(@PathVariable String id) {
-        return service.buscarPorId(id);
+    public ResponseEntity<ProcessoImportacao> buscarPorId(@PathVariable String id) {
+        return ResponseEntity.ok(service.buscarPorId(id));
     }
 
     @PutMapping("/{id}")
-    public ProcessoImportacao atualizar(@PathVariable String id, @RequestBody ProcessoDTO dados) {
-        return service.atualizar(id, dados);
+    public ResponseEntity<ProcessoImportacao> atualizar(@PathVariable String id, @RequestBody ProcessoDTO dados) {
+        return ResponseEntity.ok(service.atualizar(id, dados));
     }
 
     @GetMapping("/filtro")
-    public List<ProcessoImportacao> filtrarPorFornecedor(@RequestParam("nome") String nome) {
-        return service.buscarPorFornecedor(nome);
+    public ResponseEntity<List<ProcessoImportacao>> filtrarPorFornecedor(@RequestParam("nome") String nome) {
+        return ResponseEntity.ok(service.buscarPorFornecedor(nome));
     }
 
     @GetMapping("/quantidade/{qtd}")
-    public List<ProcessoImportacao> filtrarPorQuantidade(@PathVariable Integer qtd) {
-        return service.buscarMaioresQue(qtd);
+    public ResponseEntity<List<ProcessoImportacao>> filtrarPorQuantidade(@PathVariable Integer qtd) {
+        return ResponseEntity.ok(service.buscarMaioresQue(qtd));
     }
 
     @DeleteMapping("/{id}")

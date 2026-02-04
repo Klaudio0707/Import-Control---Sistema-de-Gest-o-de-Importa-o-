@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -34,9 +33,14 @@ public class ProcessoImportacao {
         this.fornecedor = fornecedor;
     }
 
-    public Usuario getUsuario() { return usuario; }
-    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
-    
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public String getNumeroProcesso() {
         return numeroProcesso;
     }
@@ -96,5 +100,5 @@ public class ProcessoImportacao {
     public void setFornecedor(String fornecedorInvoice) {
         this.fornecedor = fornecedorInvoice;
     }
-    
+
 }
