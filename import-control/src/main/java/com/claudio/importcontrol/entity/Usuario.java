@@ -1,4 +1,5 @@
 package com.claudio.importcontrol.entity;
+
 import com.claudio.importcontrol.enums.PerfisAcesso;
 
 import jakarta.persistence.Column;
@@ -26,25 +27,20 @@ public class Usuario {
     private String senha;
     
     @Enumerated(EnumType.STRING)
-    private PerfisAcesso role;
+    private PerfisAcesso acesso;
 
     public Usuario() {}
 
-<<<<<<< HEAD
     public Long getId() { return id; }
 
-    public void setRole(UserRole role){this.role = role;}
+    public void setAcesso(PerfisAcesso acesso){this.acesso = acesso; }
 
-    public UserRole getRole() { return role; }
+    public PerfisAcesso getAcesso() { return acesso; }
 
     public void setId(Long id) { this.id = id; }
 
-=======
-    public Long getIdUsuario() { return id; }
-    public void setIdUsuario(Long idUsuario) { this.id = idUsuario; }
->>>>>>> 1979036 (feat(rastreio): implementa logica de eventos (entity, dto, service e repository))
     public String getNome() { return nome; }
-
+    
     public void setNome(String nome) { this.nome = nome; }
 
     public String getEmail() { return email; }
@@ -54,6 +50,7 @@ public class Usuario {
     public String getSenha() { return senha; }
 
     public void setSenha(String senha) { this.senha = senha; }
-    public PerfisAcesso getRole() { return role; }
+
+
 
 }
