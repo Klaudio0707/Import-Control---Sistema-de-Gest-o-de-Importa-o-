@@ -4,17 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-<<<<<<< HEAD
 import jakarta.persistence.*;
-=======
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
->>>>>>> 1979036 (feat(rastreio): implementa logica de eventos (entity, dto, service e repository))
+
 
 @Entity
 @Table(name = "processos_importacao")
@@ -22,10 +13,7 @@ public class ProcessoImportacao {
 
     @Id
     private String id = UUID.randomUUID().toString();
-<<<<<<< HEAD
-=======
-    @Column(unique = true)
->>>>>>> 1979036 (feat(rastreio): implementa logica de eventos (entity, dto, service e repository))
+
     private String numeroProcesso;
     private String identificadorInvoice;
     private String fornecedor;
@@ -33,6 +21,9 @@ public class ProcessoImportacao {
     private Double quantidade;
     private BigDecimal precoPorQuilo;
     private LocalDate dataEmbarque;
+    private LocalDate dataChegada;
+    private LocalDate previsaoEmbarque;
+    private String DI;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
@@ -113,6 +104,21 @@ public class ProcessoImportacao {
 
     public void setFornecedor(String fornecedorInvoice) {
         this.fornecedor = fornecedorInvoice;
+    }
+    public LocalDate getPrevisaoEmbarque() {
+        return previsaoEmbarque;
+    }
+    public void setPrevisaoEmbarque(LocalDate previsaoEmbarque) {
+        this.previsaoEmbarque = previsaoEmbarque;
+    }
+    public LocalDate getDataChegada() {
+        return dataChegada;
+    }
+    public void setDataChegada(LocalDate dataChegada) {
+        this.dataChegada = dataChegada;
+    }
+    public String getDI() {
+        return DI;
     }
 
 }

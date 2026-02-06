@@ -24,19 +24,18 @@ public class EventoService {
 
     public EventoRastreio registrar(EventoDTO dados) {
        
-        ProcessoImportacao processoPai = processoRepository.findById(dados.processoId())
+        ProcessoImportacao processoAtual = processoRepository.findById(dados.processoId())
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Processo não encontrado com ID: " + dados.processoId()));
 
         EventoRastreio evento = new EventoRastreio();
         evento.setDescricao(dados.descricao());
         evento.setLocalizacao(dados.localizacao());
         evento.setStatus(dados.status());
-        
         evento.setRastreioDocumento(dados.rastreioDocumento()); 
-        
-        evento.setDataOcorrencia(LocalDateTime.now());
+    
+        evento.setDataEvento(LocalDateTime.now());
 
-        evento.setProcesso(processoPai); 
+        evento.setProcesso(processoAtual); 
 
         return repository.save(evento);
     }
