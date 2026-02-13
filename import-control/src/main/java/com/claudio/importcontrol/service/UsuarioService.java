@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import com.claudio.importcontrol.dto.UsuarioDTO;
 import com.claudio.importcontrol.entity.Usuario;
 import com.claudio.importcontrol.repository.UsuarioRepository;
@@ -18,6 +20,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Usuario criar(UsuarioDTO dados) {
         Usuario usuario = new Usuario();
         usuario.setNome(dados.nome());
@@ -25,7 +30,11 @@ public class UsuarioService {
         usuario.setSenha(dados.senha()); 
         usuario.setAcesso(dados.acesso());
 
-        //usarei o hash 
+       String senhaCriptografada = passwordEncoder.encode(dados.senha());
+        usuario.setSenha(senhaCriptografada);
+        
+        usuario.setAcesso(dados.acesso());
+
         try {
             return repository.save(usuario);
         } catch (DataIntegrityViolationException e) {
